@@ -18,7 +18,7 @@ public class Shake {
 		this.base = base;
 		this.fruta = fruta;
 		this.topping = topping;
-		this.adicionais = adicionais;
+		this.adicionais = adicionais.stream().sorted().collect(Collectors.toList());
 		this.tipoTamanho = tipoTamanho;
 	}
 
@@ -27,6 +27,7 @@ public class Shake {
 		this.fruta = fruta;
 		this.topping = topping;
 		this.tipoTamanho = tipoTamanho;
+		this.adicionais = new ArrayList<Adicional>();
 	}
 
 	public Base getBase() {
@@ -78,6 +79,9 @@ public class Shake {
 
 	public Boolean compareTo(Shake shake) {
 
+		List<Adicional> current = this.adicionais;
+		List<Adicional> neaveuList = shake.getAdicionais();
+
 		if (!shake.getFruta().equals(this.getFruta()))
 			return false;
 		else if (!shake.getBase().equals(this.getBase()))
@@ -88,13 +92,22 @@ public class Shake {
 			return false;
 		else if (!shake.getFruta().equals(this.getFruta()))
 			return false;
-
-		List<Adicional> current = this.adicionais.stream().sorted().collect(Collectors.toList());
-		List<Adicional> neaveuList = shake.getAdicionais().stream().sorted().collect(Collectors.toList());
-
-		if (!current.equals(neaveuList))
+		else if (!compareAdicionais(current, neaveuList))
 			return false;
 
 		return true;
+	}
+
+	private boolean compareAdicionais(List<Adicional> current, List<Adicional> neaveuList) {
+		if (current.size() != neaveuList.size())
+			return false;
+
+		for (int i = 0; i < current.size(); i++) {
+			if (!current.get(i).equals(current.get(i)))
+				return false;
+		}
+
+		return true;
+
 	}
 }
