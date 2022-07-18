@@ -45,19 +45,19 @@ public class Cardapio {
 
 	private void validarParametros(Ingrediente ingrediente, Double preco) {
 		if (preco <= 0)
-			throw new IllegalArgumentException("Preço inválido");
+			throw new IllegalArgumentException("Preco invalido.");
 		if (this.precos.get(ingrediente)==null)
-			throw new IllegalArgumentException("Ingrediente não existe no cardápio");
+			throw new IllegalArgumentException("Ingrediente nao existe no cardapio.");
 	}
 
 	private void validarParametros(Ingrediente ingrediente) {
 		if (this.precos.get(ingrediente)==null)
-			throw new IllegalArgumentException("Ingrediente não existe no cardápio");
+			throw new IllegalArgumentException("Ingrediente nao existe no cardapio.");
 	}
 
 	private void validarParametros(Double preco) {
 		if (preco <= 0)
-			throw new IllegalArgumentException("Preço inválido");
+			throw new IllegalArgumentException("Preco invalido.");
 	}
 
 	@Override
