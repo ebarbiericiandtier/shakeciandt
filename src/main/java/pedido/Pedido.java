@@ -87,6 +87,7 @@ public class Pedido {
 	public void adicionarItemPedido(ItemPedido itemPedidoAdicionado) {
 		Boolean exists = this.itens.stream().filter(o -> o.getShake().compareTo(itemPedidoAdicionado.getShake()))
 				.findFirst().isPresent();
+		Integer id = this.itens.indexOf(itemPedidoAdicionado);
 
 		if (!exists) {
 			this.itens.add(itemPedidoAdicionado);
@@ -99,19 +100,19 @@ public class Pedido {
 			ItemPedido itemPedido = pedidos.get(0);
 			itemPedido.setQuantidade(itemPedido.getQuantidade() + itemPedidoAdicionado.getQuantidade());
 			this.itens.set(this.itens.indexOf(itemPedido), itemPedido);
+
 		}
 
 	}
 
 	public boolean removeItemPedido(ItemPedido itemPedidoRemovido) {
-		List<ItemPedido> items = this.itens.stream().filter(p -> p.getShake().equals(itemPedidoRemovido.getShake()))
+		List<ItemPedido> items = this.itens.stream().filter(p -> p.getShake().compareTo(itemPedidoRemovido.getShake()))
 				.collect(Collectors.toList());
 		ItemPedido item = itens.get(0);
 		if (item != null) {
-			if (item.getQuantidade() > 1) {
+			if (item.getQuantidade() != 1) {
 				item.setQuantidade(item.getQuantidade() - 1);
-				this.itens.remove(itemPedidoRemovido);
-				this.itens.add(item);
+				this.itens.set(itens.indexOf(item), item);
 			} else
 				this.itens.remove(itemPedidoRemovido);
 
